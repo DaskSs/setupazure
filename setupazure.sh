@@ -4,17 +4,28 @@
 sudo apt-get update
 sudo apt-get upgrade -y
 
-# Instala o Python 3 e pip
-sudo apt-get install -y python3 python3-pip
+# Instala dependências para compilar Python
+sudo apt-get install -y build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev libbz2-dev wget
+
+# Baixa o Python 3.12.0
+cd /tmp
+wget https://www.python.org/ftp/python/3.12.0/Python-3.12.0.tar.xz
+
+# Extrai e compila o Python
+tar -xf Python-3.12.0.tar.xz
+cd Python-3.12.0
+./configure --enable-optimizations
+make -j `nproc`
+sudo make altinstall
 
 # Atualiza o pip
-python3 -m pip install --upgrade pip
+python3.12 -m pip install --upgrade pip
 
 # Instala os pacotes Python necessários
-pip install discord requests Pillow httpx asyncio
+python3.12 -m pip install discord requests Pillow httpx asyncio
 
 # Instala o pacote 'sydney-py'
-pip install sydney-py
+python3.12 -m pip install sydney-py
 
 # Instala o vsftpd
 sudo apt-get install -y vsftpd
