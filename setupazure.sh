@@ -4,28 +4,25 @@
 sudo apt-get update
 sudo apt-get upgrade -y
 
-# Instala dependências para compilar Python
-sudo apt-get install -y build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev libbz2-dev wget
+# Adiciona o PPA para Python mais recente
+sudo add-apt-repository ppa:deadsnakes/ppa -y
 
-# Baixa o Python 3.12.0
-cd /tmp
-wget https://www.python.org/ftp/python/3.12.0/Python-3.12.0.tar.xz
+# Atualiza os pacotes do sistema
+sudo apt-get update
+sudo apt-get upgrade -y
 
-# Extrai e compila o Python
-tar -xf Python-3.12.0.tar.xz
-cd Python-3.12.0
-./configure --enable-optimizations
-make -j `nproc`
-sudo make altinstall
+# Instala a versão mais recente do Python
+sudo apt-get install -y python3.10 python3.10-venv python3.10-distutils
 
-# Atualiza o pip
-python3.12 -m pip install --upgrade pip
+# Baixa e instala o pip para Python 3.10
+wget https://bootstrap.pypa.io/get-pip.py
+sudo python3.10 get-pip.py
 
 # Instala os pacotes Python necessários
-python3.12 -m pip install discord requests Pillow httpx asyncio
+python3.10 -m pip install discord requests Pillow httpx asyncio
 
 # Instala o pacote 'sydney-py'
-python3.12 -m pip install sydney-py
+python3.10 -m pip install sydney-py
 
 # Instala o vsftpd
 sudo apt-get install -y vsftpd
@@ -48,9 +45,10 @@ sudo systemctl restart vsftpd
 sudo adduser ftpuser --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password
 echo "ftpuser:12345" | sudo chpasswd
 
-# Cria a pasta /Adobe Stock
-sudo mkdir /Adobe\ Stock
-sudo chown ftpuser:ftpuser /Adobe\ Stock
+# Cria a pasta AutoADS e subpastas
+sudo mkdir -p /AutoADS/python
+sudo chown ftpuser:ftpuser /AutoADS
+sudo chown ftpuser:ftpuser /AutoADS/python
 
 # Configurações adicionais para o diretório do usuário FTP
 sudo mkdir /home/ftpuser/ftp
@@ -64,15 +62,15 @@ sudo chown ftpuser:ftpuser /home/ftpuser/ftp/files
 # Instala o Git
 sudo apt-get install -y git
 
-# Variáveis de Token e Repositório (substitua SEU_TOKEN e NOME_DO_USUARIO)
+# Variáveis de Token e Repositório
 TOKEN="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"
 REPO_URL="https://github.com/DaskSs/Auto-Adobe-Stock.git"
 
-# Clona o Repositório
-git clone https://${TOKEN}@${REPO_URL}
+# Clona o Repositório na pasta python
+git clone https://${TOKEN}@${REPO_URL} /AutoADS/python
 
 # Navega até o diretório clonado e executa o script
-cd Auto-Adobe-Stock
+cd /AutoADS/python
 sudo nohup python3 adobestock02.py &
 
 echo "Configuração concluída."
