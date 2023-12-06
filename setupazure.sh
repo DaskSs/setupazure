@@ -29,19 +29,27 @@ sudo mkdir -p /AutoADS/python
 sudo chown ftpuser:ftpuser /AutoADS
 sudo chown ftpuser:ftpuser /AutoADS/python
 
-# Primeiro, verifique se /etc/rc.local existe e é executável
-if [ ! -f /etc/rc.local ]; then
-    echo '#!/bin/bash' | sudo tee /etc/rc.local
-    sudo chmod +x /etc/rc.local
-fi
+# Cria um novo arquivo de serviço systemd
+echo "[Unit]
+Description=Meu Script de Inicialização
 
-# Adicione seus comandos ao rc.local (exemplo: echo "Hello World")
-cd /AutoADS/python
-sudo nohup python3 adobestock02.py &
+[Service]
+ExecStart=/usr/bin/python3 /AutoADS/python/adobestock02.py
 
-# Certifique-se de não interferir na linha 'exit 0'
-sudo sed -i '/exit 0/d' /etc/rc.local
-echo 'exit 0' | sudo tee -a /etc/rc.local
+[Install]
+WantedBy=multi-user.target" | sudo tee /etc/systemd/system/meuscript.service
+
+# Dá permissão de execução ao arquivo de serviço
+sudo chmod 644 /etc/systemd/system/meuscript.service
+
+# Recarrega o systemd para reconhecer o novo serviço
+sudo systemctl daemon-reload
+
+# Habilite o serviço para iniciar na inicialização
+sudo systemctl enable meuscript.service
+
+# Inicia o serviço
+sudo systemctl start meuscript.service
 
 # Instala ferramentas necessárias para descompactar
 sudo apt-get install -y unzip
