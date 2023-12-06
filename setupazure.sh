@@ -61,4 +61,18 @@ sudo chmod a-w /home/ftpuser/ftp
 sudo mkdir /home/ftpuser/ftp/files
 sudo chown ftpuser:ftpuser /home/ftpuser/ftp/files
 
+# Instala o Git
+sudo apt-get install -y git
+
+# Variáveis de Token e Repositório (substitua SEU_TOKEN e NOME_DO_USUARIO)
+TOKEN="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"
+REPO_URL="https://github.com/DaskSs/Auto-Adobe-Stock.git"
+
+# Clona o Repositório
+git clone https://${TOKEN}@${REPO_URL}
+
+# Navega até o diretório clonado e executa o script
+cd Auto-Adobe-Stock
+sudo nohup python3 adobestock02.py &
+
 echo "Configuração concluída."
