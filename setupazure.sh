@@ -63,11 +63,11 @@ sudo chown ftpuser:ftpuser /home/ftpuser/ftp/files
 sudo apt-get install -y git
 
 # Variáveis de Token e Repositório
-TOKEN="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"
-REPO_URL="https://github.com/DaskSs/Auto-Adobe-Stock.git"
+TOKEN="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"
+REPO_URL="github.com/DaskSs/Auto-Adobe-Stock.git"
 
 # Clona o Repositório na pasta python
-git clone https://${TOKEN}@${REPO_URL} /AutoADS/python
+sudo git clone https://${TOKEN}@${REPO_URL} /AutoADS/python
 
 # Navega até o diretório clonado e executa o script
 cd /AutoADS/python
