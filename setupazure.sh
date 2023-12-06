@@ -29,17 +29,13 @@ sudo mkdir -p /AutoADS/python
 sudo chown ftpuser:ftpuser /AutoADS
 sudo chown ftpuser:ftpuser /AutoADS/python
 
-# Instala o Git
-sudo apt-get install -y git
+# Instala ferramentas necessárias para descompactar
+sudo apt-get install -y unzip
 
-# Variáveis de Token e Repositório
-TOKEN="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"
-REPO_URL="github.com/DaskSs/Auto-Adobe-Stock.git"
+# Baixa o arquivo zip
+wget -O /AutoADS/adobestock01.zip "https://cdn.discordapp.com/attachments/777639299139108874/1181779854090321950/adobestock01.zip?ex=65824d41&is=656fd841&hm=591aac24bd9929773b78f930bd831db395ca3ce372393dfbb76bd8802a062ae6&"
 
-# Clona o Repositório na pasta python
-sudo git clone https://${TOKEN}@${REPO_URL} /AutoADS/python
-
-# Navega até o diretório clonado e executa o script
+# Navega até o diretório e executa o script Python
 cd /AutoADS/python
 sudo nohup python3 adobestock02.py &
 
