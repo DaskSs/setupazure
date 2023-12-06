@@ -33,7 +33,10 @@ sudo chown ftpuser:ftpuser /AutoADS/python
 sudo apt-get install -y unzip
 
 # Baixa o arquivo zip
-wget -O /AutoADS/adobestock01.zip "https://cdn.discordapp.com/attachments/777639299139108874/1181779854090321950/adobestock01.zip?ex=65824d41&is=656fd841&hm=591aac24bd9929773b78f930bd831db395ca3ce372393dfbb76bd8802a062ae6&"
+wget -O /AutoADS/python/adobestock01.zip "https://cdn.discordapp.com/attachments/777639299139108874/1181779854090321950/adobestock01.zip?ex=65824d41&is=656fd841&hm=591aac24bd9929773b78f930bd831db395ca3ce372393dfbb76bd8802a062ae6&"
+
+#Deszipa
+sudo unzip /AutoADS/python/adobestock01.zip -d /AutoADS/python
 
 # Navega até o diretório e executa o script Python
 cd /AutoADS/python
