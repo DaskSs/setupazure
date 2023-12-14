@@ -14,6 +14,9 @@ sudo apt-get upgrade -y
 # Instala a versão mais recente do Python
 sudo apt-get install -y python3.10 python3.10-venv python3.10-distutils
 
+#Instala o Azure CLI
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
 # Baixa e instala o pip para Python 3.10
 wget https://bootstrap.pypa.io/get-pip.py
 sudo python3.10 get-pip.py
