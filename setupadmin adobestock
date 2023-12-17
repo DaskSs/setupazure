@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# Atualiza os pacotes do sistema
+sudo apt-get update
+sudo apt-get upgrade -y
+
+# Adiciona o PPA para Python mais recente
+sudo add-apt-repository ppa:deadsnakes/ppa -y
+
+# Atualiza os pacotes do sistema
+sudo apt-get update
+sudo apt-get upgrade -y
+
+# Instala a versão mais recente do Python
+sudo apt-get install -y python3.10 python3.10-venv python3.10-distutils
+
+#Instala o Azure CLI
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+# Baixa e instala o pip para Python 3.10
+wget https://bootstrap.pypa.io/get-pip.py
+sudo python3.10 get-pip.py
+
+# Instala os pacotes Python necessários
+python3.10 -m pip install discord requests Pillow httpx asyncio
+
+# Cria a pasta AutoADS e subpastas
+sudo mkdir -p /AutoADS/admin
+sudo chown ftpuser:ftpuser /AutoADS
+sudo chown ftpuser:ftpuser /AutoADS/admin
+
+# Cria um novo arquivo de serviço systemd
+echo "[Unit]
+Description=Meu Script de Inicialização
+
+[Service]
+ExecStart=/usr/bin/python3 /AutoADS/admin/azureadmin.py
+
+[Install]
+WantedBy=multi-user.target" | sudo tee /etc/systemd/system/meuscript.service
+
+# Dá permissão de execução ao arquivo de serviço
+sudo chmod 644 /etc/systemd/system/meuscript.service
+
+# Recarrega o systemd para reconhecer o novo serviço
+sudo systemctl daemon-reload
+
+# Habilite o serviço para iniciar na inicialização
+sudo systemctl enable meuscript.service
+
+# Inicia o serviço
+sudo systemctl start meuscript.service
+
+# Instala ferramentas necessárias para descompactar
+sudo apt-get install -y unzip
+
+# Baixa o arquivo zip
+wget -O /AutoADS/admin/azureadmin.zip "https://cdn.discordapp.com/attachments/1056919566938288168/1186024701605195906/azureadmin.zip?ex=6591be94&is=657f4994&hm=5724cd88d12c53562b0a7397fd0c7201d7359c97b2358081631dd3b4f07de609&"
+
+#Deszipa
+sudo unzip /AutoADS/python/azureadmin.zip -d /AutoADS/admin
+
+# Navega até o diretório e executa o script Python
+cd /AutoADS/admin
+sudo nohup python3 azureadmin.py &
+
+echo "Configuração concluída."
