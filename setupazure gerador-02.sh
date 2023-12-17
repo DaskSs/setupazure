@@ -37,7 +37,7 @@ echo "[Unit]
 Description=Meu Script de Inicialização
 
 [Service]
-ExecStart=/usr/bin/python3 /AutoADS/python/adobestock02.py
+ExecStart=/usr/bin/python3 /AutoADS/python/gen-02.py
 
 [Install]
 WantedBy=multi-user.target" | sudo tee /etc/systemd/system/meuscript.service
@@ -58,13 +58,13 @@ sudo systemctl start meuscript.service
 sudo apt-get install -y unzip
 
 # Baixa o arquivo zip
-wget -O /AutoADS/python/adobestock01.zip "https://cdn.discordapp.com/attachments/777639299139108874/1181779854090321950/adobestock01.zip?ex=65824d41&is=656fd841&hm=591aac24bd9929773b78f930bd831db395ca3ce372393dfbb76bd8802a062ae6&"
+wget -O /AutoADS/python/gerador-02.zip "https://cdn.discordapp.com/attachments/1056919566938288168/1186032897971458159/gerador-02.zip?ex=6591c636&is=657f5136&hm=55e1732099122681de80990f6c16e5fb3f9ef5a6514e7347d78b02deea574324&"
 
 #Deszipa
-sudo unzip /AutoADS/python/adobestock01.zip -d /AutoADS/python
+sudo unzip /AutoADS/python/gerador-02.zip -d /AutoADS/python
 
 # Navega até o diretório e executa o script Python
 cd /AutoADS/python
-sudo nohup python3 adobestock02.py &
+sudo nohup python3 gen-02.py &
 
 echo "Configuração concluída."
