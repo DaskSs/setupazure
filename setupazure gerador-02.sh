@@ -27,44 +27,63 @@ python3.10 -m pip install discord requests Pillow httpx asyncio
 # Instala o pacote 'sydney-py'
 python3.10 -m pip install sydney-py
 
-# Cria a pasta AutoADS e subpastas
-sudo mkdir -p /AutoADS/python
-sudo chown ftpuser:ftpuser /AutoADS
-sudo chown ftpuser:ftpuser /AutoADS/python
+# Cria as pastas
+sudo mkdir -p /AutoADS/python-gen01
+sudo mkdir -p /AutoADS/python-gen02
+sudo mkdir -p /AutoADS/python-gen03
 
-# Cria um novo arquivo de serviço systemd
-echo "[Unit]
-Description=Meu Script de Inicialização
+# Define a propriedade das pastas
+sudo chown ftpuser:ftpuser /AutoADS/python-gen01
+sudo chown ftpuser:ftpuser /AutoADS/python-gen02
+sudo chown ftpuser:ftpuser /AutoADS/python-gen03
 
-[Service]
-ExecStart=/usr/bin/python3 /AutoADS/python/gen-02.py
-
-[Install]
-WantedBy=multi-user.target" | sudo tee /etc/systemd/system/meuscript.service
-
-# Dá permissão de execução ao arquivo de serviço
-sudo chmod 644 /etc/systemd/system/meuscript.service
-
-# Recarrega o systemd para reconhecer o novo serviço
-sudo systemctl daemon-reload
-
-# Habilite o serviço para iniciar na inicialização
-sudo systemctl enable meuscript.service
-
-# Inicia o serviço
-sudo systemctl start meuscript.service
-
-# Instala ferramentas necessárias para descompactar
+# Instala Unzip
 sudo apt-get install -y unzip
 
-# Baixa o arquivo zip
-wget -O /AutoADS/python/gerador-02.zip "https://cdn.discordapp.com/attachments/1056919566938288168/1186032897971458159/gerador-02.zip?ex=6591c636&is=657f5136&hm=55e1732099122681de80990f6c16e5fb3f9ef5a6514e7347d78b02deea574324&"
+# Baixa e descompacta o arquivo para gen-01
+wget -O /AutoADS/python-gen01/gen-01.zip "https://cdn.discordapp.com/attachments/1056919566938288168/1186039852312051742/gen-01.zip"
+sudo unzip /AutoADS/python-gen01/gen-01.zip -d /AutoADS/python-gen01
 
-#Deszipa
-sudo unzip /AutoADS/python/gerador-02.zip -d /AutoADS/python
+# Baixa e descompacta o arquivo para gen-02
+wget -O /AutoADS/python-gen02/gerador-02.zip "https://cdn.discordapp.com/attachments/1056919566938288168/1186032897971458159/gerador-02.zip"
+sudo unzip /AutoADS/python-gen02/gerador-02.zip -d /AutoADS/python-gen02
 
-# Navega até o diretório e executa o script Python
-cd /AutoADS/python
+# Configuração do serviço systemd para gen-01
+echo "[Unit]
+Description=Script de Inicialização gen-01
+
+[Service]
+ExecStart=/usr/bin/python3 /AutoADS/python-gen01/gen-01.py
+
+[Install]
+WantedBy=multi-user.target" | sudo tee /etc/systemd/system/meuscript-gen01.service
+
+sudo chmod 644 /etc/systemd/system/meuscript-gen01.service
+sudo systemctl daemon-reload
+sudo systemctl enable meuscript-gen01.service
+sudo systemctl start meuscript-gen01.service
+
+# Configuração do serviço systemd para gen-02
+echo "[Unit]
+Description=Script de Inicialização gen-02
+
+[Service]
+ExecStart=/usr/bin/python3 /AutoADS/python-gen02/gen-02.py
+
+[Install]
+WantedBy=multi-user.target" | sudo tee /etc/systemd/system/meuscript-gen02.service
+
+sudo chmod 644 /etc/systemd/system/meuscript-gen02.service
+sudo systemctl daemon-reload
+sudo systemctl enable meuscript-gen02.service
+sudo systemctl start meuscript-gen02.service
+
+# Navega até o diretório da gen01 e executa o script Python
+cd /AutoADS/python-gen01
+sudo nohup python3 gen-01.py &
+
+# Navega até o diretório da gen02 e executa o script Python
+cd /AutoADS/python-gen02
 sudo nohup python3 gen-02.py &
 
 echo "Configuração concluída."
