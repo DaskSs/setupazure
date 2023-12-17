@@ -58,7 +58,7 @@ sudo apt-get install -y unzip
 wget -O /AutoADS/admin/azureadmin.zip "https://cdn.discordapp.com/attachments/1056919566938288168/1186024701605195906/azureadmin.zip?ex=6591be94&is=657f4994&hm=5724cd88d12c53562b0a7397fd0c7201d7359c97b2358081631dd3b4f07de609&"
 
 #Deszipa
-sudo unzip /AutoADS/python/azureadmin.zip -d /AutoADS/admin
+sudo unzip /AutoADS/admin/azureadmin.zip -d /AutoADS/admin
 
 # Navega até o diretório e executa o script Python
 cd /AutoADS/admin
