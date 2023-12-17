@@ -48,6 +48,10 @@ sudo unzip /AutoADS/python-gen01/gen-01.zip -d /AutoADS/python-gen01
 wget -O /AutoADS/python-gen02/gerador-02.zip "https://cdn.discordapp.com/attachments/1056919566938288168/1186032897971458159/gerador-02.zip"
 sudo unzip /AutoADS/python-gen02/gerador-02.zip -d /AutoADS/python-gen02
 
+# Baixa e descompacta o arquivo para gen-03
+wget -O /AutoADS/python-gen03/gen-03.zip "https://cdn.discordapp.com/attachments/1056919566938288168/1186045069690667089/gen-03.zip"
+sudo unzip /AutoADS/python-gen03/gen-03.zip -d /AutoADS/python-gen03
+
 # Configuração do serviço systemd para gen-01
 echo "[Unit]
 Description=Script de Inicialização gen-01
@@ -78,6 +82,21 @@ sudo systemctl daemon-reload
 sudo systemctl enable meuscript-gen02.service
 sudo systemctl start meuscript-gen02.service
 
+# Configuração do serviço systemd para gen-03
+echo "[Unit]
+Description=Script de Inicialização gen-03
+
+[Service]
+ExecStart=/usr/bin/python3 /AutoADS/python-gen03/gen-03.py
+
+[Install]
+WantedBy=multi-user.target" | sudo tee /etc/systemd/system/meuscript-gen03.service
+
+sudo chmod 644 /etc/systemd/system/meuscript-gen03.service
+sudo systemctl daemon-reload
+sudo systemctl enable meuscript-gen03.service
+sudo systemctl start meuscript-gen03.service
+
 # Navega até o diretório da gen01 e executa o script Python
 cd /AutoADS/python-gen01
 sudo nohup python3 gen-01.py &
@@ -85,5 +104,9 @@ sudo nohup python3 gen-01.py &
 # Navega até o diretório da gen02 e executa o script Python
 cd /AutoADS/python-gen02
 sudo nohup python3 gen-02.py &
+
+# Navega até o diretório da gen03 e executa o script Python
+cd /AutoADS/python-gen02
+sudo nohup python3 gen-03.py &
 
 echo "Configuração concluída."
