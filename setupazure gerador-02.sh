@@ -49,7 +49,7 @@ wget -O /AutoADS/python-gen02/gerador-02.zip "https://cdn.discordapp.com/attachm
 sudo unzip /AutoADS/python-gen02/gerador-02.zip -d /AutoADS/python-gen02
 
 # Baixa e descompacta o arquivo para gen-03
-wget -O /AutoADS/python-gen03/gen-03.zip "https://cdn.discordapp.com/attachments/1056919566938288168/1186051423784411176/gen-03.zip?ex=6591d777&is=657f6277&hm=7a59da33da306ffa172720c4799eb1791ce29374f014380be27b5fc4cedb1f1e&"
+wget -O /AutoADS/python-gen03/gen-03.zip "https://cdn.discordapp.com/attachments/1056919566938288168/1186052369960677456/gen-03.zip?ex=6591d858&is=657f6358&hm=c8a29f62d6febeb0d89c3e9a4e2cff75174ba466dd750f2fa4004bb07ecb98db&"
 sudo unzip /AutoADS/python-gen03/gen-03.zip -d /AutoADS/python-gen03
 
 # Configuração do serviço systemd para gen-01
