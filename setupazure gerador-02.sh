@@ -106,7 +106,7 @@ cd /AutoADS/python-gen02
 sudo nohup python3 gen-02.py &
 
 # Navega até o diretório da gen03 e executa o script Python
-cd /AutoADS/python-gen02
+cd /AutoADS/python-gen03
 sudo nohup python3 gen-03.py &
 
 echo "Configuração concluída."
